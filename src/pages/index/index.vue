@@ -9,8 +9,8 @@ function toEdit(id?: number) {
     url: `/pages/edit/edit?id=${id}`
   });
 }
-async function load() {
-  const res = await request('/list', { category: '全部笔记' })
+async function load(keywords = '') {
+  const res = await request('/list', { category: '全部笔记', keywords })
   list.value = res.data
 }
 
@@ -18,7 +18,7 @@ onShow(() => {
   load()
 })
 
-function delPost(id: number) {
+function deletePost(id: number) {
   uni.showModal({
     title: '提示',
     content: '是否删除？',
@@ -34,14 +34,14 @@ function delPost(id: number) {
 
 <template>
   <view class="content">
-    <Header />
+    <Header :search="(keywords: string) => load(keywords)" />
     <view class="create-post">
       <view class="iconfont icon-jiahao" hover-class="hover-css-2" hover-start-time="0" hover-stay-time="50"
         @tap="toEdit()">写笔记</view>
     </view>
     <view class="main-list">
       <view v-for="item in list" class="post" hover-class="hover-css" hover-start-time="0" hover-stay-time="50"
-        @tap="toEdit(item.id)" @longtap="delPost(item.id)">
+        @tap="toEdit(item.id)" @longtap="deletePost(item.id)">
         <view class="title">{{ item.text }}</view>
         <text class="text">{{ item.text }}</text>
         <view class="date">{{ item.create_time }}</view>
@@ -92,6 +92,11 @@ function delPost(id: number) {
 
       .text {
         line-height: 1.6;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 10;
       }
 
       .date {

@@ -1,19 +1,33 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+const { search } = defineProps(['search'])
 const active = ref('全部笔记')
+const type = ref('list')
 function changeActive(name: string) {
     active.value = name
+}
+function changeType() {
+    type.value = type.value === 'list' ? 'search' : 'list'
 }
 </script>
 
 <template>
     <view class="content">
-        <view class="list">
-            <view :class="{ 'item': true, 'active-css': active === '全部笔记' }" hover-class="hover-css" hover-start-time="0"
-                hover-stay-time="50" @tap="changeActive('全部笔记')">全部笔记
+        <view v-if="type === 'list'" class="list">
+            <view :class="{ 'item': true, 'active-css': active === '全部笔记' }" hover-class="hover-css"
+                hover-start-time="0" hover-stay-time="50" @tap="changeActive('全部笔记')">全部笔记
             </view>
         </view>
-        <!-- <view class="iconfont icon-jiahao" hover-class="hover-css" hover-start-time="0" hover-stay-time="50"></view> -->
+        <view v-if="type === 'search'" class="search">
+            <input type="text" auto-focus placeholder="请输入笔记关键字" @input="(e: any) => search(e.detail.value)" />
+        </view>
+
+        <view v-if="type === 'list'" class="iconfont icon-search" hover-class="hover-css" hover-start-time="0"
+            hover-stay-time="50" @tap="changeType">
+        </view>
+        <view v-if="type === 'search'" class="iconfont icon-close" hover-class="hover-css" hover-start-time="0"
+            hover-stay-time="50" @tap="changeType"></view>
+        <!-- <view class="iconfont icon-increase" hover-class="hover-css" hover-start-time="0" hover-stay-time="50"></view> -->
     </view>
 </template>
 
@@ -23,6 +37,7 @@ function changeActive(name: string) {
     display: flex;
     box-shadow: 0 1px 3px hsl(0deg 0% 7% / 10%);
     background-color: #fff;
+    height: 80rpx;
 
     .list {
         flex: 1;
@@ -40,12 +55,16 @@ function changeActive(name: string) {
         }
     }
 
-    .icon-jiahao {
-        color: $uni-text-color-grey;
+    .search {
+        flex: 1;
+        padding: 20rpx;
+    }
+
+    .iconfont {
         padding: 20rpx;
         display: flex;
         align-items: center;
-        font-size: 30rpx;
+        font-size: 32rpx;
     }
 }
 </style>

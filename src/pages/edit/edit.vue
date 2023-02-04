@@ -25,7 +25,7 @@ onLoad((query) => {
 
 <template>
     <view class="content">
-        <textarea class="input" auto-focus placeholder="写笔记" :value="post" @input="edit" />
+        <textarea class="input" auto-focus placeholder="写笔记" maxlength="-1" :value="post" @input="edit" />
         <view class="save" hover-class="hover-css-2" hover-start-time="0" hover-stay-time="50" @click="save">
             保存</view>
     </view>
@@ -43,6 +43,8 @@ onLoad((query) => {
         width: 100%;
         padding: 20rpx;
         box-sizing: border-box;
+        font-size: 32rpx;
+        line-height: 1.6;
     }
 
     .save {
