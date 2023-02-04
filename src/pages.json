@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index"
+    },
+    {
+      "path": "pages/edit/edit"
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "分类笔记",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  }
+}
