@@ -7,12 +7,12 @@ export function createApp() {
   };
 }
 
-const host = "http://127.0.0.1:7001";
-// const host = "https://service-eumajiqw-1258011420.gz.apigw.tencentcs.com";
+// const host = "http://10.118.20.45:7001";
+const host = "https://service-eumajiqw-1258011420.gz.apigw.tencentcs.com";
 
 let openid = "";
 
-export function request(url: string, data: any): Promise<{ code: number; data: any }> {
+export function request(url: string, data?: any): Promise<{ code: number; data: any }> {
   return new Promise((resolve) => {
     uni.request({
       url: host + "/todo" + url,
